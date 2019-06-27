@@ -1,0 +1,16 @@
+---
+- hosts: centos
+  user: centos
+  become: yes
+  vars:
+    inproxy: false
+  roles:
+    - roles/centos
+
+- hosts: ubuntu
+  user: ubuntu
+  become: yes
+  vars:
+    inproxy: true 
+  roles: 
+    - roles/ubuntu
