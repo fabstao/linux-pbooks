@@ -4,7 +4,5 @@ export PROXY=proxy-dmz.intel.com
 export PORT=911
 export PROXY_TYPE=http-connect
 export PAC_URL=http://wpad.intel.com 
-export no_proxy="127.0.0.0/8,localhost,10.0.0.0/8,172.16.0.0/16,192.168.0.0/16,172.24.0.0/16,172.17.0.0/16"
-export NO_PROXY=${no_proxy}
 export EXCEPTIONS=/root/chameleonsocks.exceptions
 /root/chameleonsocks.sh --install

@@ -1,0 +1,58 @@
+---
+- name: Customizing CentOS for Jenkins slave role
+  shell: echo "Customizing CentOS for Jenkins slave role"
+  
+- name: Customize issue
+  shell: echo "CentOS 7 Customized by Intel Cloud Native GDC" > /etc/issue ; echo >> /etc/issue
+
+- name: Customize issue.net
+  shell: echo "CentOS 7 Customized by Intel Cloud Native GDC" > /etc/issue.net; echo >> /etc/issue.net
+
+- name: Customize motd
+  copy:
+    src: motd
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Environment Proxy
+  copy:
+    src: intel.sh
+    dest: /etc/profile.d/intel.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: YUM proxy
+  copy:
+    src: yum.conf
+    dest: /etc/yum.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Disable SELinux
+  selinux: 
+    state: disabled 
+
+- name: Remove firewalld
+  yum: 
+    name: firewalld
+    state: absent
+
+- name: Vim, OpenJDK for Jenkins (slave role), Python tools
+  yum: 
+    name: vim, java-11-openjdk, python-setuptools, python-virtualenv
+    state: present
+
+- name: Upgrade system
+  yum: 
+    name: '*'
+    state: latest
+
+- name: Install pip
+  command: easy_install pip
+
+- include: chameleon.yaml
+  when: inproxy == true  
