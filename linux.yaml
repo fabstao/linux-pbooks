@@ -11,6 +11,11 @@
   become: yes
   vars:
     inproxy: false
+  environment:
+    HTTP_PROXY: http://proxy-dmz.intel.com:911
+    https_proxy: http://proxy-dmz.intel.com:911
+    http_proxy: http://proxy-dmz.intel.com:911
+    HTTPS_PROXY: http://proxy-dmz.intel.com:911
   roles:
     - roles/centos
 
@@ -19,7 +24,12 @@
   user: ubuntu
   become: yes
   vars:
-    inproxy: true 
+    inproxy: true
+  environment:
+    HTTP_PROXY: http://proxy-dmz.intel.com:911
+    https_proxy: http://proxy-dmz.intel.com:911
+    http_proxy: http://proxy-dmz.intel.com:911
+    HTTPS_PROXY: http://proxy-dmz.intel.com:911
   roles: 
     - roles/ubuntu
 
@@ -29,6 +39,24 @@
   become: yes
   vars:
     inproxy: true
+  environment:
+    HTTP_PROXY: http://proxy-dmz.intel.com:911
+    https_proxy: http://proxy-dmz.intel.com:911
+    http_proxy: http://proxy-dmz.intel.com:911
+    HTTPS_PROXY: http://proxy-dmz.intel.com:911
   roles:
     - roles/centos-slaves
 
+# Prepare Ubuntu based Jenkins slaves
+- hosts: ubuntu-slaves
+  user: ubuntu
+  become: yes
+  vars:
+    inproxy: true
+  environment:
+    HTTP_PROXY: http://proxy-dmz.intel.com:911
+    https_proxy: http://proxy-dmz.intel.com:911
+    http_proxy: http://proxy-dmz.intel.com:911
+    HTTPS_PROXY: http://proxy-dmz.intel.com:911
+  roles:
+    - roles/ubuntu-slaves

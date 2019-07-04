@@ -1,0 +1,39 @@
+---
+- name: Customize issue
+  shell: echo "Ubuntu Customized by Intel Cloud Native GDC" > /etc/issue ; echo >> /etc/issue
+
+- name: Customize issue.net
+  shell: echo "Ubuntu Customized by Intel Cloud Native GDC" > /etc/issue.net; echo >> /etc/issue.net
+
+- name: Customize motd
+  copy:
+    src: motd
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Environment Proxy
+  copy:
+    src: intel.sh
+    dest: /etc/profile.d/70_intel.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Update OS
+  apt: 
+    name: '*'
+    state: latest
+
+- name: Install curl, wget, vim, tmux,nc, git, Java, Python
+  apt: 
+    name: curl,wget,vim,tmux,netcat-openbsd,git,python,python-pip,openjdk-11-jdk
+    state: present
+
+- include: chameleon.yaml
+  when: inproxy == true  

@@ -1,13 +1,4 @@
 ---
-- name: Customizing CentOS for Jenkins slave role
-  shell: echo "Customizing CentOS for Jenkins slave role"
-  
-- name: Customize issue
-  shell: echo "CentOS 7 Customized by Intel Cloud Native GDC" > /etc/issue ; echo >> /etc/issue
-
-- name: Customize issue.net
-  shell: echo "CentOS 7 Customized by Intel Cloud Native GDC" > /etc/issue.net; echo >> /etc/issue.net
-
 - name: Customize motd
   copy:
     src: motd
@@ -15,6 +6,12 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Customize issue
+  shell: echo "CentOS 7 Customized by Intel Cloud Native GDC" > /etc/issue ; echo >> /etc/issue
+
+- name: Customize issue.net
+  shell: echo "CentOS 7 Customized by Intel Cloud Native GDC" > /etc/issue.net; echo >> /etc/issue.net
 
 - name: Environment Proxy
   copy:
@@ -41,9 +38,9 @@
     name: firewalld
     state: absent
 
-- name: Vim, OpenJDK for Jenkins (slave role), Python tools
+- name: Vim, OpenJDK for Jenkins (slave role), Python tools, git
   yum: 
-    name: vim, java-11-openjdk, python-setuptools, python-virtualenv
+    name: vim, java-11-openjdk, python-setuptools, python-virtualenv, git, wget
     state: present
 
 - name: Upgrade system
@@ -53,6 +50,13 @@
 
 - name: Install pip
   command: easy_install pip
+
+- name: Create /jenkins for slave agent
+  file:
+    path: /jenkins
+    state: directory
+    mode: 0755
+    owner: centos
 
 - include: chameleon.yaml
   when: inproxy == true  
