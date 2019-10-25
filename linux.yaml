@@ -12,10 +12,10 @@
   vars:
     inproxy: false
   environment:
-    HTTP_PROXY: http://proxy-dmz.intel.com:911
-    https_proxy: http://proxy-dmz.intel.com:911
-    http_proxy: http://proxy-dmz.intel.com:911
-    HTTPS_PROXY: http://proxy-dmz.intel.com:911
+    HTTP_PROXY: http://proxy-dmz.example.com:3128
+    https_proxy: http://proxy-dmz.example.com:3128
+    http_proxy: http://proxy-dmz.example.com:3128
+    HTTPS_PROXY: http://proxy-dmz.example.com:3128
   roles:
     - roles/centos
 
@@ -26,10 +26,10 @@
   vars:
     inproxy: true
   environment:
-    HTTP_PROXY: http://proxy-dmz.intel.com:911
-    https_proxy: http://proxy-dmz.intel.com:911
-    http_proxy: http://proxy-dmz.intel.com:911
-    HTTPS_PROXY: http://proxy-dmz.intel.com:911
+    HTTP_PROXY: http://proxy-dmz.example.com:3128
+    https_proxy: http://proxy-dmz.example.com:3128
+    http_proxy: http://proxy-dmz.example.com:3128
+    HTTPS_PROXY: http://proxy-dmz.example.com:3128
   roles: 
     - roles/ubuntu
 
@@ -40,10 +40,10 @@
   vars:
     inproxy: true
   environment:
-    HTTP_PROXY: http://proxy-dmz.intel.com:911
-    https_proxy: http://proxy-dmz.intel.com:911
-    http_proxy: http://proxy-dmz.intel.com:911
-    HTTPS_PROXY: http://proxy-dmz.intel.com:911
+    HTTP_PROXY: http://proxy-dmz.example.com:3128
+    https_proxy: http://proxy-dmz.example.com:3128
+    http_proxy: http://proxy-dmz.example.com:3128
+    HTTPS_PROXY: http://proxy-dmz.example.com:3128
   roles:
     - roles/centos-slaves
 
@@ -54,9 +54,9 @@
   vars:
     inproxy: true
   environment:
-    HTTP_PROXY: http://proxy-dmz.intel.com:911
-    https_proxy: http://proxy-dmz.intel.com:911
-    http_proxy: http://proxy-dmz.intel.com:911
-    HTTPS_PROXY: http://proxy-dmz.intel.com:911
+    HTTP_PROXY: http://proxy-dmz.example.com:3128
+    https_proxy: http://proxy-dmz.example.com:3128
+    http_proxy: http://proxy-dmz.example.com:3128
+    HTTPS_PROXY: http://proxy-dmz.example.com:3128
   roles:
     - roles/ubuntu-slaves
