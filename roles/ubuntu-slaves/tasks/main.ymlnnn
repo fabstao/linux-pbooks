@@ -15,13 +15,13 @@
 
 - name: Environment Proxy
   copy:
-    src: NUO.sh
-    dest: /etc/profile.d/70_NUO.sh
+    src: intel.sh
+    dest: /etc/profile.d/70_intel.sh
     owner: root
     group: root
     mode: 0755
 
-- name:
+- name: Update apt cache
   apt:
     update_cache: yes
 
@@ -30,9 +30,9 @@
     name: '*'
     state: latest
 
-- name: Install curl, wget, vim, tmux,nc, git, Python
+- name: Install curl, wget, vim, tmux,nc, git, Java, Python
   apt: 
-    name: curl,wget,vim,tmux,netcat-openbsd,git,python,python-pip
+    name: curl,wget,vim,tmux,netcat-openbsd,git,python,python-pip,openjdk-11-jdk
     state: present
 
 - include: chameleon.yaml

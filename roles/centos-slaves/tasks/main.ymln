@@ -1,10 +1,4 @@
 ---
-- name: Customize issue
-  shell: echo "CentOS 7 Customized by NUO" > /etc/issue ; echo >> /etc/issue
-
-- name: Customize issue.net
-  shell: echo "CentOS 7 Customized by NUO" > /etc/issue.net; echo >> /etc/issue.net
-
 - name: Customize motd
   copy:
     src: motd
@@ -13,10 +7,16 @@
     group: root
     mode: 0644
 
+- name: Customize issue
+  shell: echo "CentOS 7 Customized by NUO" > /etc/issue ; echo >> /etc/issue
+
+- name: Customize issue.net
+  shell: echo "CentOS 7 Customized by NUO" > /etc/issue.net; echo >> /etc/issue.net
+
 - name: Environment Proxy
   copy:
-    src: NUO.sh
-    dest: /etc/profile.d/NUO.sh
+    src: intel.sh
+    dest: /etc/profile.d/intel.sh
     owner: root
     group: root
     mode: 0755
@@ -38,9 +38,9 @@
     name: firewalld
     state: absent
 
-- name: Install Git, tcpdump, nc,curl, wget, epel-release, python-setuptools and vim
+- name: Vim, OpenJDK for Jenkins (slave role), Python tools, git
   yum: 
-    name: curl,wget,vim,epel-release,git,nmap-ncat,tcpdump,python-setuptools
+    name: vim, java-11-openjdk, python-setuptools, python-virtualenv, git, wget
     state: present
 
 - name: Upgrade system
@@ -50,6 +50,13 @@
 
 - name: Install pip
   command: easy_install pip
+
+- name: Create /jenkins for slave agent
+  file:
+    path: /jenkins
+    state: directory
+    mode: 0755
+    owner: centos
 
 - include: chameleon.yaml
   when: inproxy == true  

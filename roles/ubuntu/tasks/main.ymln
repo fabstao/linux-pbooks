@@ -15,8 +15,8 @@
 
 - name: Environment Proxy
   copy:
-    src: NUO.sh
-    dest: /etc/profile.d/70_NUO.sh
+    src: intel.sh
+    dest: /etc/profile.d/70_intel.sh
     owner: root
     group: root
     mode: 0755
