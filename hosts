@@ -1,10 +1,8 @@
 [centos]
+192.168.1.182	ansible_ssh_private_key_file=~/ckey
 
 [ubuntu]
-#10.219.105.89     ansible_ssh_private_key_file=~/maas2
 
 [centos-slaves]
-#10.219.106.115    ansible_ssh_private_key_file=~/maas2
 
 [ubuntu-slaves]
-10.219.106.108     ansible_ssh_private_key_file=~/maas2
