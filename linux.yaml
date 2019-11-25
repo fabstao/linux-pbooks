@@ -11,20 +11,33 @@
   become: yes
   vars:
     inproxy: false
-  environment:
-    HTTP_PROXY: http://proxy-dmz.example.com:3128
-    https_proxy: http://proxy-dmz.example.com:3128
-    http_proxy: http://proxy-dmz.example.com:3128
-    HTTPS_PROXY: http://proxy-dmz.example.com:3128
+  #environment:
+  #  HTTP_PROXY: http://proxy-dmz.example.com:3128
+  #  https_proxy: http://proxy-dmz.example.com:3128
+  #  http_proxy: http://proxy-dmz.example.com:3128
+  #  HTTPS_PROXY: http://proxy-dmz.example.com:3128
   roles:
     - roles/centos
+
+- hosts: centos-okd
+#  user: centos
+  become: yes
+  vars:
+    inproxy: false
+  #environment:
+  #  HTTP_PROXY: http://proxy-dmz.example.com:3128
+  #  https_proxy: http://proxy-dmz.example.com:3128
+  #  http_proxy: http://proxy-dmz.example.com:3128
+  #  HTTPS_PROXY: http://proxy-dmz.example.com:3128
+  roles:
+    - roles/centos-okd
 
 # Prepare Ubuntu based Linux hosts
 - hosts: ubuntu
   user: ubuntu
   become: yes
   vars:
-    inproxy: true
+    inproxy: false
   environment:
     HTTP_PROXY: http://proxy-dmz.example.com:3128
     https_proxy: http://proxy-dmz.example.com:3128
@@ -38,7 +51,7 @@
   user: centos
   become: yes
   vars:
-    inproxy: true
+    inproxy: false
   environment:
     HTTP_PROXY: http://proxy-dmz.example.com:3128
     https_proxy: http://proxy-dmz.example.com:3128
@@ -47,16 +60,11 @@
   roles:
     - roles/centos-slaves
 
-# Prepare Ubuntu based Jenkins slaves
-- hosts: ubuntu-slaves
+# Prepare Ubuntu based OKD host
+- hosts: ubuntu-okd
   user: ubuntu
   become: yes
   vars:
-    inproxy: true
-  environment:
-    HTTP_PROXY: http://proxy-dmz.example.com:3128
-    https_proxy: http://proxy-dmz.example.com:3128
-    http_proxy: http://proxy-dmz.example.com:3128
-    HTTPS_PROXY: http://proxy-dmz.example.com:3128
+    inproxy: false
   roles:
-    - roles/ubuntu-slaves
+    - roles/ubuntu-okd

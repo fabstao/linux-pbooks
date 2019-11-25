@@ -13,14 +13,6 @@
     group: root
     mode: 0644
 
-- name: Environment Proxy
-  copy:
-    src: NUO.sh
-    dest: /etc/profile.d/70_NUO.sh
-    owner: root
-    group: root
-    mode: 0755
-
 - name:
   apt:
     update_cache: yes
@@ -35,5 +27,3 @@
     name: curl,wget,vim,tmux,netcat-openbsd,git,python,python-pip
     state: present
 
-- include: chameleon.yaml
-  when: inproxy == true  

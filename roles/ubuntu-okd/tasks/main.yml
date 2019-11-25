@@ -1,0 +1,93 @@
+---
+- name: Customize issue
+  shell: echo "Ubuntu Customized by NUO" > /etc/issue ; echo >> /etc/issue
+
+- name: Customize issue.net
+  shell: echo "Ubuntu Customized by NUO" > /etc/issue.net; echo >> /etc/issue.net
+
+- name: Customize motd
+  copy:
+    src: motd
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: 0644
+
+- name:
+  apt:
+    update_cache: yes
+
+- name: Update OS
+  apt: 
+    name: '*'
+    state: latest
+
+- name: Install curl, wget, vim, tmux,nc, git, Python, docker
+  apt: 
+    name: curl,wget,vim,tmux,netcat-openbsd,git,python,python-pip,docker.io
+    state: present
+
+- name: Ensure docker group exists
+  group:
+    name: docker
+    state: present
+
+- name: 
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: docker
+    mode: 0444
+
+- name: Add docker group ownership
+  file:
+    path: /var/run/docker.sock
+    owner: root
+    group: docker
+    mode: '0644'
+
+- name: Add user to docker group
+  user:
+    name: fsalaman
+    groups: docker,sudo
+
+- name: Reload docker
+  systemd:
+    state: restarted
+    daemon_reload: yes
+    name: docker
+
+- name : Download OKD oc client tool
+  get_url:
+    url: https://github.com/openshift/origin/releases/download/v3.11.0/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit.tar.gz
+    dest: /root/oc.tgz
+    mode: '0644'
+
+- name: Create target dir
+  file:
+    path: /opt/oc
+    state: directory
+
+- name: Untar oc client tool
+  unarchive:
+    src: /root/oc.tgz
+    dest: /opt/oc
+    remote_src: yes
+
+- name: Add binaries to path
+  copy:
+    src: /opt/oc/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit/oc
+    dest: /usr/bin/oc
+    remote_src: yes
+    mode: 755
+
+- name: Add binaries to path
+  copy:
+    src: /opt/oc/openshift-origin-client-tools-v3.11.0-0cbc58b-linux-64bit/kubectl
+    dest: /usr/bin/kubectl
+    remote_src: yes
+    mode: 755
+
+- name: Install OKD
+  command: oc cluster up

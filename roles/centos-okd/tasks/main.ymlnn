@@ -1,0 +1,55 @@
+---
+- name: Customize issue
+  shell: echo "CentOS 7 Customized by NUO Cloud Native GDC" > /etc/issue ; echo >> /etc/issue
+
+- name: Customize issue.net
+  shell: echo "CentOS 7 Customized by NUO Cloud Native GDC" > /etc/issue.net; echo >> /etc/issue.net
+
+- name: Customize motd
+  copy:
+    src: motd
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Environment Proxy
+  copy:
+    src: NUO.sh
+    dest: /etc/profile.d/NUO.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: YUM proxy
+  copy:
+    src: yum.conf
+    dest: /etc/yum.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Disable SELinux
+  selinux: 
+    state: disabled 
+
+- name: Remove firewalld
+  yum: 
+    name: firewalld
+    state: absent
+
+- name: Install Git, tcpdump, nc,curl, wget, epel-release, python-setuptools and vim
+  yum: 
+    name: curl,wget,vim,epel-release,git,nmap-ncat,tcpdump,python-setuptools
+    state: present
+
+- name: Upgrade system
+  yum: 
+    name: '*'
+    state: latest
+
+- name: Install pip
+  command: easy_install pip
+
+- include: chameleon.yaml
+  when: inproxy == true  
