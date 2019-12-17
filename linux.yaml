@@ -20,7 +20,7 @@
     - roles/centos
 
 - hosts: centos-okd
-#  user: centos
+  user: centos
   become: yes
   vars:
     inproxy: false

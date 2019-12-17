@@ -1,7 +1,7 @@
 [centos]
 
 [centos-okd]
-#192.168.1.185	ansible_ssh_private_key_file=~/ckey
+192.168.1.182	ansible_ssh_private_key_file=~/ckey
 #192.168.56.133	ansible_ssh_private_key_file=~/ckey remote_user=fsalaman
 
 [ubuntu]
@@ -10,4 +10,3 @@
 
 [ubuntu-okd]
 #192.168.56.103	ansible_ssh_private_key_file=~/ckey remote_user=fsalaman
-192.168.1.182	ansible_ssh_private_key_file=~/ckey remote_user=debian
