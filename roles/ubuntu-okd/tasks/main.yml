@@ -24,7 +24,7 @@
 
 - name: Install curl, wget, vim, tmux,nc, git, Python, docker
   apt: 
-    name: curl,wget,vim,tmux,netcat-openbsd,git,python,python-pip,docker.io
+    name: curl,wget,vim,tmux,netcat-openbsd,git,python,python-pip,docker.io,ufw
     state: present
 
 - name: Ensure docker group exists

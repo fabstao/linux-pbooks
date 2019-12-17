@@ -57,8 +57,8 @@
     name: docker
     enabled: yes
 
-- name: Create new dockerc  FirewallD Zone for OKD
-  command: firewall-cmd --permanent --new-zone dockerc
+#- name: Create new dockerc  FirewallD Zone for OKD
+#  command: firewall-cmd --permanent --new-zone dockerc
 
 - name: Enable firewall TCP ports
   firewalld: 

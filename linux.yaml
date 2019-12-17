@@ -32,6 +32,19 @@
   roles:
     - roles/centos-okd
 
+- hosts: centos-okd-par
+  user: centos
+  become: yes
+  vars:
+    inproxy: false
+  #environment:
+  #  HTTP_PROXY: http://proxy-dmz.example.com:3128
+  #  https_proxy: http://proxy-dmz.example.com:3128
+  #  http_proxy: http://proxy-dmz.example.com:3128
+  #  HTTPS_PROXY: http://proxy-dmz.example.com:3128
+  roles:
+    - roles/centos-okd-par
+
 # Prepare Ubuntu based Linux hosts
 - hosts: ubuntu
   user: ubuntu
