@@ -2,6 +2,7 @@
 
 [centos-okd]
 #192.168.56.133	ansible_ssh_private_key_file=~/ckey remote_user=fsalaman
+34.94.239.233 ansible_ssh_private_key_file=~/gcpkey1 remote_user=fsalaman
 
 [ubuntu]
 
@@ -11,5 +12,5 @@
 #192.168.56.103	ansible_ssh_private_key_file=~/ckey remote_user=fsalaman
 
 [centos-okd-par]
-44.227.24.57    ansible_ssh_private_key_file=~/ckey
-192.168.1.182	ansible_ssh_private_key_file=~/ckey
+#44.227.24.57    ansible_ssh_private_key_file=~/ckey
+#192.168.1.182	ansible_ssh_private_key_file=~/ckey
