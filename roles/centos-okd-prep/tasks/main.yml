@@ -1,0 +1,120 @@
+---
+- name: Customize issue
+  shell: echo "CentOS 7 Customized by NUO" > /etc/issue ; echo >> /etc/issue
+
+- name: Customize issue.net
+  shell: echo "CentOS 7 Customized by NUO" > /etc/issue.net; echo >> /etc/issue.net
+
+- name: Customize motd
+  copy:
+    src: motd
+    dest: /etc/motd
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy SSH key
+  copy:
+    src: ckey
+    dest: /home/centos/ckey
+    owner: centos
+    group: centos
+    mode: 0400
+
+- name: Copy SSH pub key
+  copy:
+    src: ckey.pub
+    dest: /home/centos/ckey.pub
+    owner: centos
+    group: centos
+    mode: 0400
+
+- name: Copy resolv.conf
+  copy:
+    src: resolv.conf
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enable SELinux
+  selinux: 
+    state: enforcing 
+    policy: targeted
+
+- name: Yum update cache
+  yum:
+    update_cache: yes
+
+- name: Upgrade system
+  yum: 
+    name: '*'
+    state: latest
+    update_only: yes
+    #update_cache: yes
+
+- name: Install Several packages
+  yum: 
+    name: NetworkManager,curl,wget,vim,epel-release,git,nmap-ncat,tcpdump,python-setuptools,docker,bash-completion,net-tools,bind-utils,yum-utils,iptables-services,bridge-utils,kexec-tools,sos,psacct
+    state: present
+
+- name: Uninstall FirewallD
+  yum:
+    name: firewalld
+    state: absent
+
+- name: Install Ansible, pyOpenSSL
+  yum: 
+    name: ansible,pyOpenSSL
+    state: present
+
+- name: Enable NetworkManager
+  systemd:
+    state: started
+    name: NetworkManager
+    enabled: yes
+
+- name: Enable Docker
+  systemd:
+    state: started
+    name: docker
+    enabled: yes
+
+- name: Insecure Resgistry
+  copy:
+    src: daemon.json
+    dest: /etc/docker
+
+- name: Restart Docker
+  systemd:
+    state: restarted
+    name: docker
+    enabled: yes
+
+- name: Flush iptables
+  iptables: 
+    flush: yes
+  with_items: [ 'INPUT', 'OUTPUT','FORWARD' ]
+
+- name: Install pip
+  command: easy_install pip
+
+- name: Copy Docker Storage Setup
+  copy:
+    src: docker-storage-setup
+    dest: /etc/sysconfig/docker-storage-setup
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Configure Docker storage 
+  command: docker-storage-setup create dockervg /etc/sysconfig/docker-storage-setup
+  ignore_errors: yes
+
+- name: Download Openshift v3.11
+  command: git clone https://github.com/openshift/openshift-ansible /home/centos/openshift-ansible
+  ignore_errors: yes
+
+- name: Test DNS
+  command: ping -c 2 masterokd.nuo.com.mx
+
