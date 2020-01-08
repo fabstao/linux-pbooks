@@ -20,7 +20,7 @@
     - roles/centos
 
 - hosts: centos-okd-prep
-  user: centos
+  user: fsalaman
   become: yes
   vars:
     inproxy: false

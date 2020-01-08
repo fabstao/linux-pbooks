@@ -1,9 +1,9 @@
 ---
 - name: Customize issue
-  shell: echo "CentOS 7 Customized by NUO" > /etc/issue ; echo >> /etc/issue
+  shell: echo "CentOS 7 Customized by FABS" > /etc/issue ; echo >> /etc/issue
 
 - name: Customize issue.net
-  shell: echo "CentOS 7 Customized by NUO" > /etc/issue.net; echo >> /etc/issue.net
+  shell: echo "CentOS 7 Customized by FABS" > /etc/issue.net; echo >> /etc/issue.net
 
 - name: Customize motd
   copy:
