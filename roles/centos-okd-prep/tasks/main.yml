@@ -16,26 +16,26 @@
 - name: Copy SSH key
   copy:
     src: ckey
-    dest: /home/centos/ckey
-    owner: centos
-    group: centos
+    dest: /home/{{remote_user}}/ckey
+    owner: fsalaman
+    group: fsalaman
     mode: 0400
 
 - name: Copy SSH pub key
   copy:
     src: ckey.pub
-    dest: /home/centos/ckey.pub
-    owner: centos
-    group: centos
+    dest: /home/{{remote_user}}/ckey.pub
+    owner: '{{remote_user}}'
+    group: '{{remote_user}}'
     mode: 0400
 
-- name: Copy resolv.conf
-  copy:
-    src: resolv.conf
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    mode: 0644
+#- name: Copy resolv.conf
+#  copy:
+#     src: resolv.conf
+#     dest: /etc/resolv.conf
+#     owner: root
+#     group: root
+#     mode: 0644
 
 - name: Enable SELinux
   selinux: 
@@ -112,9 +112,5 @@
   ignore_errors: yes
 
 - name: Download Openshift v3.11
-  command: git clone https://github.com/openshift/openshift-ansible /home/centos/openshift-ansible
+  command: git clone https://github.com/openshift/openshift-ansible /home/fsalaman/openshift-ansible
   ignore_errors: yes
-
-- name: Test DNS
-  command: ping -c 2 masterokd.nuo.com.mx
-
