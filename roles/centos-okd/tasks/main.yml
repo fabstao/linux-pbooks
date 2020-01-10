@@ -1,9 +1,9 @@
 ---
 - name: Customize issue
-  shell: echo "CentOS 7 Customized by NUO" > /etc/issue ; echo >> /etc/issue
+  shell: echo "CentOS 7 Customized by GTS" > /etc/issue ; echo >> /etc/issue
 
 - name: Customize issue.net
-  shell: echo "CentOS 7 Customized by NUO" > /etc/issue.net; echo >> /etc/issue.net
+  shell: echo "CentOS 7 Customized by GTS" > /etc/issue.net; echo >> /etc/issue.net
 
 - name: Customize motd
   copy:
@@ -59,6 +59,7 @@
 
 - name: Create new dockerc  FirewallD Zone for OKD
   command: firewall-cmd --permanent --new-zone dockerc
+  ignore_errors: yes
 
 - name: Enable firewall TCP ports
   firewalld: 
