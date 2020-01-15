@@ -4,6 +4,7 @@
 #192.168.56.133	ansible_ssh_private_key_file=~/ckey remote_user=fsalaman
 #34.94.239.233 ansible_ssh_private_key_file=~/gcpkey1 remote_user=fsalaman
 #34.94.239.233 ansible_ssh_private_key_file=~/gcpkey1 remote_user=fsalaman
+okd1.gtsmex.mx ansible_ssh_private_key_file=~/ckey remote_user=fasalibm
 
 [ubuntu]
 

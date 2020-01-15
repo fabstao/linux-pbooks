@@ -13,6 +13,10 @@
     group: root
     mode: 0644
 
+- name: Set hostname
+  hostname:
+    name: "{{inventory_hostname}}"
+
 - name: Enable SELinux
   selinux: 
     state: enforcing 
@@ -78,6 +82,12 @@
 - firewalld:
     zone: dockerc
     interface: enp0s8
+    permanent: yes
+    state: enabled
+
+- firewalld:
+    zone: dockerc
+    interface: lo
     permanent: yes
     state: enabled
 

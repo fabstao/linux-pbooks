@@ -33,7 +33,7 @@
     - roles/centos-okd-prep
 
 - hosts: centos-okd
-  user: centos
+  user: fsalaman
   become: yes
   vars:
     inproxy: false
