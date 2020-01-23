@@ -112,8 +112,8 @@
   ignore_errors: yes
 
 - name: Download Openshift v3.11
-  command: git clone https://github.com/openshift/openshift-ansible /home/fsalaman/openshift-ansible
+  command: git clone https://github.com/openshift/openshift-ansible /home/{{remote_user}}/openshift-ansible
   ignore_errors: yes
 
 - name: Change owner for openshift-ansible
-  command: chown -R {{remote_user}}.{{remote_user}} ~/{{remote_user}}/openshift-ansible
+  command: chown -R {{remote_user}}.{{remote_user}} /home/{{remote_user}}/openshift-ansible
